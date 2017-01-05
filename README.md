@@ -1,21 +1,20 @@
 # OpenCartRestApiV2 
 				
-				-Chen Z. 
-				-CIO Tech, Inc 
-
-This extension allows users to retrieve orders from OpenCart without using order_id. 
+This extension allows users to retrieve orders/order_status_id from OpenCart without using order_id. 
+> -Chen Z. 
+> -CIO Tech, Inc 
 
 # README / INSTALLATION  #
 
-:+1:This extension has been tested on CopenCart V2.3.0.2. Update will be provided in the future. 
+This extension has been tested on CopenCart V2.3.0.2. Update will be provided in the future. 
 
-###ENSURE YOU BACKUP YOUR SITE BEFORE INSTALLING THIS ###
+###:bangbang:ENSURE YOU BACKUP YOUR SITE BEFORE INSTALLING THIS ###
 
-###OpenCartRestApiV2 EXTENSION MIGHT CONFLICT WITH OTHER EXISTING EXTENSIONS.###
+###:bangbang:OpenCartRestApiV2 EXTENSION MIGHT CONFLICT WITH OTHER EXISTING EXTENSIONS.###
 
-###IT IS HIGHLY RECOMMENDED TO GET YOUR WEBSITE ADMIN TO REVIEW ALL FILES.###
+###:bangbang:IT IS HIGHLY RECOMMENDED TO GET YOUR WEBSITE ADMIN TO REVIEW ALL FILES.###
 
-###:arrow_right:INSTALLATION IS AT YOUR OWN RISK.:arrow_left:###
+###:bangbang:INSTALLATION IS AT YOUR OWN RISK.###
 
 ######You may need to install [QuickFix](https://www.opencart.com/index.php?route=marketplace/extension/info&extension_id=18892&filter_search=quick+fix) in order to resolve FTP issue (Highly suggested).
 
@@ -32,10 +31,17 @@ You will notice that the folders are in the same structure as your Opencart inst
 
 # Usage #
 Endpoint: 
-YOUR.STORE_URL.com/index.php?route=feed/gss_api/orders
+1. ```
+	YOUR.STORE_URL.com/index.php?route=feed/gss_api/orders
 							&token=zX3msz5Yd74FmlCs86SxhsRG4aa32r6W (Obtain your session token from /index.php?route=api/login endpoint)
 							&limit=100 (default 200)
 							&offset=0 (default 0)
 							&status=2  (order_status code, default 2)
 							&date_from=2016-11-12+00:00:00
 							&date_to=2017-11-12+00:00:00
+   ```
+2. ```
+	YOUR.STORE_URL.com/index.php?route=feed/gss_api/order_status
+							&token=zX3msz5Yd74FmlCs86SxhsRG4aa32r6W (Obtain your session token from /index.php?route=api/login endpoint)
+							&status=Shipped (Find order status by going to System > Localisation > Order Statuses)
+   ```
