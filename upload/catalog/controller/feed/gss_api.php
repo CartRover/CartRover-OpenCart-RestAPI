@@ -6,8 +6,6 @@ class ControllerFeedGssApi extends Controller {
 	public function orders() {
 		$this->checkPlugin();
 
-		$orderData['orders'] = array();
-		
 		$json = array(); 
 		if (!isset($this->session->data['api_id'])) {
 			$json['error'] = $this->language->get('error_permission');
@@ -53,6 +51,29 @@ class ControllerFeedGssApi extends Controller {
 		$this->response->setOutput(json_encode($json));
 	}
 
+	
+	public function order_status() {
+		$this->checkPlugin();
+
+		$json = array(); 
+		if (!isset($this->session->data['api_id'])) {
+			$json['error'] = $this->language->get('error_permission');
+		} else {
+			if (isset($this->request->get['status']) && $this->request->get['status'] != "") {
+				$status_name = $this->request->get['status'];
+				
+				$this->load->model('account/gss_order');
+				$json = $this->model_account_gss_order->getOrderStatusId($status_name);
+			} else {
+				$json['error'] = "Please pass in status name"; 
+			}
+		}
+		
+		$this->response->addHeader('Content-Type: application/json');
+		$this->response->setOutput(json_encode($json));
+	}
+	
+	
 	protected function checkPlugin() {
 		$json = array("success" => false);
 		

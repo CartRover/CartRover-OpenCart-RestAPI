@@ -47,4 +47,16 @@ class ModelAccountGssOrder extends Model {
 		}
 	}
 	
+	public function getOrderStatusId($status_name){
+		$query = "SELECT  * FROM `" . DB_PREFIX . "order_status` WHERE name = '" . $this->db->escape(trim($status_name)) . "' "; //SQL Injection????
+		
+		$status_query = $this->db->query($query);
+		
+		if ($status_query->num_rows) {
+			return $status_query->rows;
+		} else {
+			return array(); 
+		}
+	}
+	
 }
