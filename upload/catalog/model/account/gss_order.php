@@ -2,8 +2,20 @@
 
 class ModelAccountGssOrder extends Model {
 
-	public function getOrderByStatusId($status) {
-		$order_query = $this->db->query("SELECT  * FROM `" . DB_PREFIX . "order` WHERE order_status_id = '" . (int) $status . "'");
+	public function getOrderByStatusId($status, $offset, $limit, $date_from, $date_to) {
+		$query = "SELECT  * FROM `" . DB_PREFIX . "order` WHERE order_status_id = '" . (int) $status . "' ";
+		
+		if(!empty($date_from)){
+			$query .= "AND date_modified >= '$date_from' "; 
+		}
+		
+		if(!empty($date_to)){
+			$query .= "AND date_modified <= '$date_to' ";
+		}
+		
+		$query .=  "LIMIT " . (int)$limit . " OFFSET " . (int)$offset * (int)$limit; 
+		
+		$order_query = $this->db->query($query);
 
 		if ($order_query->num_rows) {
 
@@ -28,13 +40,11 @@ class ModelAccountGssOrder extends Model {
 				$order_query->rows[$key]['shipping_iso_code_2'] = $shipping_iso_code_2;
 				$order_query->rows[$key]['shipping_iso_code_3'] = $shipping_iso_code_3;
 				$order_query->rows[$key]['shipping_zone_code'] = $shipping_zone_code;
-			}   //->
+			}   
 			return $order_query->rows;
 		} else {
-			return false;
+			return array();
 		}
 	}
-
+	
 }
-
-?>
