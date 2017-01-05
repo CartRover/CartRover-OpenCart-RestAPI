@@ -39,12 +39,6 @@
 							</select>
 						</div>
 					</div>
-					<div class="form-group">
-						<label class="col-sm-2 control-label" for="input-key"><?php echo $entry_key; ?></label>
-						<div class="col-sm-10">
-							<input class="form-control" type="text" name="gss_api_key" id="input-key" value="<?php echo $gss_api_key; ?>" />
-						</div>
-					</div>
 				</form>
 			</div>
 		</div>
