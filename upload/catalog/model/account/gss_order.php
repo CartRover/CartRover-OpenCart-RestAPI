@@ -3,7 +3,10 @@
 class ModelAccountGssOrder extends Model {
 
 	public function getOrderByStatusId($status, $offset, $limit, $date_from, $date_to) {
-		$query = "SELECT  * FROM `" . DB_PREFIX . "order` WHERE order_status_id = '" . (int) $status . "' ";
+		$query = "SELECT  o.*, ot.value AS shipping_cost FROM `" . DB_PREFIX . "order` AS o "
+				. "LEFT JOIN `" . DB_PREFIX . "order_total` As ot ON o.order_id = ot.order_id "
+				. "WHERE o.order_status_id = '" . (int) $status . "' "
+				. "AND ot.code = 'shipping' ";
 		
 		if(!empty($date_from)){
 			$query .= "AND date_modified >= '$date_from' "; 
@@ -40,7 +43,16 @@ class ModelAccountGssOrder extends Model {
 				$order_query->rows[$key]['shipping_iso_code_2'] = $shipping_iso_code_2;
 				$order_query->rows[$key]['shipping_iso_code_3'] = $shipping_iso_code_3;
 				$order_query->rows[$key]['shipping_zone_code'] = $shipping_zone_code;
+				
+				//retrieve order_product from DB 
+				$order_id = $order_query->rows[$key]['order_id']; 
+				$products = $this->db->query("SELECT op.*, p.sku, p.weight FROM `" . DB_PREFIX . "order_product` as op JOIN product as p USING (product_id) WHERE op.order_id = '$order_id'");
+				
+				$order_query->rows[$key]['line_item'] = $products->rows;
+				unset($order_id);
+				unset($products);
 			}   
+			
 			return $order_query->rows;
 		} else {
 			return array();
