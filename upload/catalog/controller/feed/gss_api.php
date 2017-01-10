@@ -103,7 +103,7 @@ class ControllerFeedGssApi extends Controller {
 				if (isset($this->request->get['limit']) && $this->request->get['limit'] != "" && ctype_digit($this->request->get['limit'])) {
 					$limit = intval($this->request->get['limit']);
 				} else {
-					$limit = 500;
+					$limit = 200;
 				}
 				
 				/* show enabled/disabled (1/0) product */
