@@ -1,5 +1,5 @@
 # OpenCartRestApiV2 
-### -Chen Z. CIO Tech, Inc 
+### -Chen Z. *CIO Tech, Inc* 
 			
 This extension allows users to retrieve orders/order_status_id from OpenCart without using order_id. 
 

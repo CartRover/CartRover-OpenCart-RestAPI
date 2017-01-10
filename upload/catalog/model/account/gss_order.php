@@ -71,4 +71,29 @@ class ModelAccountGssOrder extends Model {
 		}
 	}
 	
+	public function get_inv_levels($offset, $limit, $enabled){
+		$query = "SELECT  * FROM `" . DB_PREFIX . "product` WHERE status = " . (int)$enabled 
+				. " LIMIT " . (int)$limit . " OFFSET " . (int)$offset * (int)$limit;
+
+		$status_query = $this->db->query($query);
+		
+		if ($status_query->num_rows) {
+			return $status_query->rows;
+		} else {
+			return array(); 
+		}	
+	}
+	
+	public function update_inv_level($product_id, $quantity){
+		//build update query 
+		$query = "UPDATE " . DB_PREFIX . "product SET quantity = $quantity, date_modified = NOW() WHERE product_id = $product_id "; 
+		$status_query = $this->db->query($query);
+		if($this->db->countAffected() === 0 ){
+			return array('error' => 'Updated 0 row in DB.'); 
+		} else {
+			return array('success' => 'Update successfully.'); 
+		}
+	}
+	
+	
 }
