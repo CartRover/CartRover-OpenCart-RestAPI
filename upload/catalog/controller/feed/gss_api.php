@@ -55,7 +55,7 @@ class ControllerFeedGssApi extends Controller {
 		}
 	}
 
-	//API call to obtain a list of order status with corresponding status_id
+	//API call to obtain a list of order status with corresponding status_id: feed/gss_api/order_status
 	public function order_status() {
 		$check = $this->checkPlugin();
 		if(!empty($check['error'])){
@@ -81,7 +81,7 @@ class ControllerFeedGssApi extends Controller {
 		}	
 	}
 	
-	//API call to obtain a list of inventory levels
+	//API call to obtain a list of inventory levels: feed/gss_api/obtain_inv_levels
 	public function obtain_inv_levels(){
 		$check = $this->checkPlugin(); 
 		if(!empty($check['error'])){
@@ -122,6 +122,7 @@ class ControllerFeedGssApi extends Controller {
 		}
 	}
 	
+	//API call to update inventory level: feed/gss_api/update_inv_level
 	public function update_inv_level(){
 		$check = $this->checkPlugin(); 
 		if(!empty($check['error'])){
@@ -158,21 +159,12 @@ class ControllerFeedGssApi extends Controller {
 	}
 	
 	protected function checkPlugin() {
-		//$json = array("success" => false);
 		$json = array(); 
-		//make sure that extension is enabled
+		
+		//feed/gss_api must be enabled
 		if (!$this->config->get('gss_api_status')) {
 			$json["error"] = 'Extension -> Feeds ->GSS API is disabled. Enable it!';
 		}
-
-		/*if (isset($json["error"])) {
-			$this->response->addHeader('Content-Type: application/json');
-			$this->response->setOutput(json_encode($json));
-			//echo(json_encode($json));
-			exit;
-		} else {
-			$this->response->setOutput(json_encode($json));
-		}*/
 		
 		return $json; 
 	}

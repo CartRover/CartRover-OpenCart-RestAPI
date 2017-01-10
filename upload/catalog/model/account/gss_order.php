@@ -18,7 +18,16 @@ class ModelAccountGssOrder extends Model {
 		
 		$query .=  "LIMIT " . (int)$limit . " OFFSET " . (int)$offset * (int)$limit; 
 		
-		$order_query = $this->db->query($query);
+		try{
+			$order_query = $this->db->query($query);
+		} catch (Exception $ex) {
+			$ret = array('error' => $ex->getMessage());
+			//Anything else ?? 
+		}
+		
+		if(!empty($ret)){
+			return $ret; 
+		}
 
 		if ($order_query->num_rows) {
 
@@ -62,8 +71,17 @@ class ModelAccountGssOrder extends Model {
 	public function getOrderStatusId($status_name){
 		$query = "SELECT  * FROM `" . DB_PREFIX . "order_status` WHERE name = '" . $this->db->escape(trim($status_name)) . "' "; //SQL Injection????
 		
-		$status_query = $this->db->query($query);
+		try{
+			$status_query = $this->db->query($query);
+		} catch (Exception $ex) {
+			$ret = array('error' => $ex->getMessage());
+			//Anything else ?? 
+		}
 		
+		if(!empty($ret)){
+			return $ret; 
+		}
+			
 		if ($status_query->num_rows) {
 			return $status_query->rows;
 		} else {
@@ -74,8 +92,16 @@ class ModelAccountGssOrder extends Model {
 	public function get_inv_levels($offset, $limit, $enabled){
 		$query = "SELECT  * FROM `" . DB_PREFIX . "product` WHERE status = " . (int)$enabled 
 				. " LIMIT " . (int)$limit . " OFFSET " . (int)$offset * (int)$limit;
-
-		$status_query = $this->db->query($query);
+		try{
+			$status_query = $this->db->query($query);
+		} catch (Exception $ex) {
+			$ret = array('error' => $ex->getMessage());
+			//Anything else ?? 
+		}
+		
+		if(!empty($ret)){
+			return $ret; 
+		}
 		
 		if ($status_query->num_rows) {
 			return $status_query->rows;
@@ -87,7 +113,18 @@ class ModelAccountGssOrder extends Model {
 	public function update_inv_level($product_id, $quantity){
 		//build update query 
 		$query = "UPDATE " . DB_PREFIX . "product SET quantity = $quantity, date_modified = NOW() WHERE product_id = $product_id "; 
-		$status_query = $this->db->query($query);
+		
+		try{
+			$status_query = $this->db->query($query);
+		} catch (Exception $ex) {
+			$ret = array('error' => $ex->getMessage());
+			//Anything else ?? 
+		}
+		
+		if(!empty($ret)){
+			return $ret; 
+		}
+		
 		if($this->db->countAffected() === 0 ){
 			return array('error' => 'Updated 0 row in DB.'); 
 		} else {
