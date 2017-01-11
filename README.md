@@ -1,12 +1,12 @@
 # CartRover OpenCart RestAPI 
 ### -Chen Z. *CIO Tech, Inc* 
 			
-This extension allows users to retrieve orders and order_status_id from OpenCart without using order_id. 
-Also, users can obtain and update inventory levels. 
+This extension allows users to retrieve orders and order_status_id from OpenCart without knowing the order_id. 
+Users can also obtain and update inventory levels. 
 
 # PLEASE READ #
 
-This extension has been tested on CopenCart **V2.3.0.2**. 
+This extension has been tested on OpenCart **V2.3.0.2**. 
 
 ###:bangbang:ENSURE YOU BACKUP YOUR SITE BEFORE INSTALLING THIS.### 
 
@@ -19,7 +19,7 @@ This extension has been tested on CopenCart **V2.3.0.2**.
 
 # INSTALLATION #
 
-######You may need to install [QuickFix](https://www.opencart.com/index.php?route=marketplace/extension/info&extension_id=18892&filter_search=quick+fix) in order to resolve FTP issue (Highly suggested).
+######You may need to install [QuickFix](https://www.opencart.com/index.php?route=marketplace/extension/info&extension_id=18892&filter_search=quick+fix) extension in OpenCart in order to resolve FTP issues (Highly suggested).
 
 1. Download **upload.ocmod.zip** file from this repository. 
 2. Navigate to Extensions > Extension Installer inside your OpenCart admin area.
@@ -32,7 +32,12 @@ This extension has been tested on CopenCart **V2.3.0.2**.
 
 You will notice that the folders are in the same structure as your Opencart installation.
 
+# HELP #
+Visit the CartRover community support site at: https://answers.cartrover.com/
+
 # USAGE #
+The following is a list of API endpoints that this extension adds to OpenCart. When using this extension with CartRover, you do not need to worry about the information below. This information is useful if you plan to use this extension with a system other than CartRover.
+
 REST API Endpoint: 
 ```
 1. [GET] YOUR.STORE_URL.com/index.php?route=feed/gss_api/orders
