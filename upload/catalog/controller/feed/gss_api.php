@@ -10,9 +10,9 @@ class ControllerFeedGssApi extends Controller {
 			$this->response->setOutput(json_encode($check));
 		} else {
 			$json = array(); 
-			if (!isset($this->session->data['api_id'])) {
-				$json['error'] = $this->language->get('error_permission');
-			} else {
+			//if (!isset($this->session->data['api_id'])) {
+			//	$json['error'] = $this->language->get('error_permission');
+			//} else {
 				/* check offset parameter */
 				if (isset($this->request->get['offset']) && $this->request->get['offset'] != "" && ctype_digit($this->request->get['offset'])) {
 					$offset = intval($this->request->get['offset']);
@@ -48,7 +48,7 @@ class ControllerFeedGssApi extends Controller {
 				$this->load->model('account/gss_order');
 
 				$json = $this->model_account_gss_order->getOrderByStatusId($status, $offset, $limit, $date_from, $date_to);
-			}
+			//}
 
 			$this->response->addHeader('Content-Type: application/json');
 			$this->response->setOutput(json_encode($json));
@@ -63,9 +63,9 @@ class ControllerFeedGssApi extends Controller {
 			$this->response->setOutput(json_encode($check));
 		} else {
 			$json = array(); 
-			if (!isset($this->session->data['api_id'])) {
-				$json['error'] = $this->language->get('error_permission');
-			} else {
+			//if (!isset($this->session->data['api_id'])) {
+			//	$json['error'] = $this->language->get('error_permission');
+			//} else {
 				if (isset($this->request->get['status']) && $this->request->get['status'] != "") {
 					$status_name = $this->request->get['status'];
 
@@ -74,7 +74,7 @@ class ControllerFeedGssApi extends Controller {
 				} else {
 					$json['error'] = "Please pass in status name"; 
 				}
-			}
+			//}
 
 			$this->response->addHeader('Content-Type: application/json');
 			$this->response->setOutput(json_encode($json));
@@ -89,9 +89,9 @@ class ControllerFeedGssApi extends Controller {
 			$this->response->setOutput(json_encode($check));
 		} else {
 			$json = array(); 
-			if (!isset($this->session->data['api_id'])) {
-				$json['error'] = $this->language->get('error_permission');
-			} else {
+			//if (!isset($this->session->data['api_id'])) {
+			//	$json['error'] = $this->language->get('error_permission');
+			//} else {
 				/* check offset parameter */
 				if (isset($this->request->get['offset']) && $this->request->get['offset'] != "" && ctype_digit($this->request->get['offset'])) {
 					$offset = intval($this->request->get['offset']);
@@ -115,7 +115,7 @@ class ControllerFeedGssApi extends Controller {
 				
 				$this->load->model('account/gss_order'); 
 				$json = $this->model_account_gss_order->get_inv_levels($offset, $limit, $enabled);
-			}
+			//}
 
 			$this->response->addHeader('Content-Type: application/json');
 			$this->response->setOutput(json_encode($json));
@@ -130,9 +130,9 @@ class ControllerFeedGssApi extends Controller {
 			$this->response->setOutput(json_encode($check));
 		} else {
 			$json = array(); 
-			if (!isset($this->session->data['api_id'])) {
-				$json['error'] = $this->language->get('error_permission');
-			} else {
+			//if (!isset($this->session->data['api_id'])) {
+			//	$json['error'] = $this->language->get('error_permission');
+			//} else {
 				//1. pass in product_id 
 				if (isset($this->request->post['product_id']) && $this->request->post['product_id'] != "" && ctype_digit($this->request->post['product_id'])) {
 					$product_id = intval($this->request->post['product_id']);
@@ -151,7 +151,7 @@ class ControllerFeedGssApi extends Controller {
 					$this->load->model('account/gss_order'); 
 					$json = $this->model_account_gss_order->update_inv_level($product_id, $quantity);
 				}
-			}
+			//}
 			
 			$this->response->addHeader('Content-Type: application/json');
 			$this->response->setOutput(json_encode($json));

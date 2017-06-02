@@ -14,7 +14,7 @@ class ControllerFeedGssApi extends Controller {
 		if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validate()) {
 			$this->model_setting_setting->editSetting('gss_api', $this->request->post);
 			$this->session->data['success'] = $this->language->get('text_success');
-			$this->response->redirect($this->url->link('extension/extension', 'token=' . $this->session->data['token'], 'SSL'));
+			$this->response->redirect($this->url->link('extension/feed', 'token=' . $this->session->data['token'], 'SSL'));
 		}
 
 		$data['heading_title'] = $this->language->get('heading_title');
@@ -46,17 +46,17 @@ class ControllerFeedGssApi extends Controller {
 
 		$data['breadcrumbs'][] = array(
 			'text' => $this->language->get('text_feed'),
-			'href' => $this->url->link('extension/extension', 'token=' . $this->session->data['token'], 'SSL')
+			'href' => $this->url->link('extension/feed', 'token=' . $this->session->data['token'], 'SSL')
 		);
 
 		$data['breadcrumbs'][] = array(
 			'text' => $this->language->get('heading_title'),
-			'href' => $this->url->link('extension/feed/gss_api', 'token=' . $this->session->data['token'], 'SSL')
+			'href' => $this->url->link('feed/gss_api', 'token=' . $this->session->data['token'], 'SSL')
 		);
 
-		$data['action'] = $this->url->link('extension/feed/gss_api', 'token=' . $this->session->data['token'], 'SSL');
+		$data['action'] = $this->url->link('feed/gss_api', 'token=' . $this->session->data['token'], 'SSL');
 
-		$data['cancel'] = $this->url->link('extension/extension', 'token=' . $this->session->data['token'], 'SSL');
+		$data['cancel'] = $this->url->link('extension/feed', 'token=' . $this->session->data['token'], 'SSL');
 
 		if (isset($this->request->post['gss_api_status'])) {
 			$data['gss_api_status'] = $this->request->post['gss_api_status'];
