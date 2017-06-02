@@ -6,7 +6,7 @@ Users can also obtain and update inventory levels.
 
 # PLEASE READ #
 
-This extension has been tested on OpenCart **V2.3.0.2**. 
+This extension has been tested on OpenCart **V2.2.0.0**. 
 
 ###:bangbang:ENSURE YOU BACKUP YOUR SITE BEFORE INSTALLING THIS.### 
 
