@@ -55,7 +55,7 @@ class ModelAccountGssOrder extends Model {
 				
 				//retrieve order_product from DB 
 				$order_id = $order_query->rows[$key]['order_id']; 
-				$products = $this->db->query("SELECT op.*, p.sku, p.weight FROM `" . DB_PREFIX . "order_product` as op JOIN product as p USING (product_id) WHERE op.order_id = '$order_id'");
+				$products = $this->db->query("SELECT op.*, p.sku, p.weight FROM `" . DB_PREFIX . "order_product` as op JOIN " . DB_PREFIX . "product as p USING (product_id) WHERE op.order_id = '$order_id'");
 				
 				$order_query->rows[$key]['line_item'] = $products->rows;
 				unset($order_id);
