@@ -161,9 +161,6 @@ class ControllerFeedGssApi extends Controller {
 	protected function checkPlugin() {
 		$json = array(); 
 		
-		error_reporting(E_ALL);
-		ini_set("display_errors" , 1);
-		
 		//feed/gss_api must be enabled
 		if (!$this->config->get('gss_api_status')) {
 			$json["error"] = 'Extension -> Feeds ->GSS API is disabled. Enable it!';
