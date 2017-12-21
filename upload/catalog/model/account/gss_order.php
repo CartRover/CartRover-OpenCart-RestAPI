@@ -64,7 +64,7 @@ class ModelAccountGssOrder extends Model {
 				//retrieve order_product from DB 
 				$order_id = $order_query->rows[$key]['order_id'];
 				try{
-					$products = $this->db->query("SELECT op.*, p.sku, p.weight FROM `" . DB_PREFIX . "order_product` as op JOIN " . DB_PREFIX . "product as p USING (product_id) WHERE op.order_id = '$order_id'");
+					$products = $this->db->query("SELECT op.*, p.sku, p.weight FROM `" . DB_PREFIX . "order_product` as op JOIN `" . DB_PREFIX . "product` as p USING (product_id) WHERE op.order_id = '$order_id'");
 				} catch (Exception $ex) {
 					return array('error' => $ex->getMessage());
 				}
@@ -124,7 +124,7 @@ class ModelAccountGssOrder extends Model {
 	
 	public function update_inv_level($product_id, $quantity){
 		//build update query 
-		$query = "UPDATE " . DB_PREFIX . "product SET quantity = $quantity, date_modified = NOW() WHERE product_id = $product_id "; 
+		$query = "UPDATE `" . DB_PREFIX . "product` SET quantity = $quantity, date_modified = NOW() WHERE product_id = $product_id "; 
 		
 		try{
 			$status_query = $this->db->query($query);
