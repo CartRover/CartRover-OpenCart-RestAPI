@@ -3,6 +3,9 @@
 class ModelAccountGssOrder extends Model {
 
 	public function getOrderByStatusId($status, $offset, $limit, $date_from, $date_to) {
+		$shipping_iso_codes = array();
+		$shipping_zone_codes = array();
+		
 		$query = "SELECT  o.*, ot.value AS shipping_cost FROM `" . DB_PREFIX . "order` AS o "
 				. "LEFT JOIN `" . DB_PREFIX . "order_total` As ot ON o.order_id = ot.order_id "
 				. "WHERE o.order_status_id = '" . (int) $status . "' "
@@ -30,38 +33,47 @@ class ModelAccountGssOrder extends Model {
 		}
 
 		if ($order_query->num_rows) {
-
-			try{
-				$country_query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "country` WHERE country_id = '" . (int) $order_query->row['shipping_country_id'] . "'");
-			} catch (Exception $ex) {
-				return array('error' => $ex->getMessage());
-			}
-			
-			if ($country_query->num_rows) {
-				$shipping_iso_code_2 = $country_query->row['iso_code_2'];
-				$shipping_iso_code_3 = $country_query->row['iso_code_3'];
-			} else {
-				$shipping_iso_code_2 = '';
-				$shipping_iso_code_3 = '';
-			}
-
-			try{
-				$zone_query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "zone` WHERE zone_id = '" . (int) $order_query->row['shipping_zone_id'] . "'");
-			} catch (Exception $ex) {
-				return array('error' => $ex->getMessage());
-			}
-				
-			if ($zone_query->num_rows) {
-				$shipping_zone_code = $zone_query->row['code'];
-			} else {
-				$shipping_zone_code = '';
-			}
 			foreach ($order_query->rows as $key => $value) {
-				$order_query->rows[$key]['shipping_iso_code_2'] = $shipping_iso_code_2;
-				$order_query->rows[$key]['shipping_iso_code_3'] = $shipping_iso_code_3;
-				$order_query->rows[$key]['shipping_zone_code'] = $shipping_zone_code;
 				
-				//retrieve order_product from DB 
+				// Lookup country and zone codes if not yet seen in this batch
+				if(!isset($shipping_iso_codes[(int) $order_query->rows[$key]['shipping_country_id']])){
+					try{
+						$country_query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "country` WHERE country_id = '" . (int) $order_query->rows[$key]['shipping_country_id'] . "'");
+					} catch (Exception $ex) {
+						return array('error' => $ex->getMessage());
+					}
+
+					if ($country_query->num_rows) {
+						$shipping_iso_codes[(int) $order_query->rows[$key]['shipping_country_id']] = array(
+							'iso_code_2' => $country_query->row['iso_code_2'],
+							'iso_code_3' => $country_query->row['iso_code_3'],
+						);
+					} else {
+						$shipping_iso_codes[(int) $order_query->rows[$key]['shipping_country_id']] = array(
+							'iso_code_2' => '',
+							'iso_code_3' => '',
+						);
+					}
+				}
+				if(!isset($shipping_zone_codes[(int) $order_query->rows[$key]['shipping_zone_id']])){
+					try{
+						$zone_query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "zone` WHERE zone_id = '" . (int) $order_query->rows[$key]['shipping_zone_id'] . "'");
+					} catch (Exception $ex) {
+						return array('error' => $ex->getMessage());
+					}
+
+					if ($zone_query->num_rows) {
+						$shipping_zone_codes[(int) $order_query->rows[$key]['shipping_zone_id']] = $zone_query->row['code'];
+					} else {
+						$shipping_zone_codes[(int) $order_query->rows[$key]['shipping_zone_id']] = '';
+					}
+				}
+				
+				$order_query->rows[$key]['shipping_iso_code_2'] = @$shipping_iso_codes[(int) $order_query->rows[$key]['shipping_country_id']]['iso_code_2'];
+				$order_query->rows[$key]['shipping_iso_code_3'] = @$shipping_iso_codes[(int) $order_query->rows[$key]['shipping_country_id']]['iso_code_3'];
+				$order_query->rows[$key]['shipping_zone_code'] = @$shipping_zone_codes[(int) $order_query->rows[$key]['shipping_zone_id']];
+				
+				//retrieve order_product from DB
 				$order_id = $order_query->rows[$key]['order_id'];
 				try{
 					$products = $this->db->query("SELECT op.*, p.sku, p.weight FROM `" . DB_PREFIX . "order_product` as op JOIN `" . DB_PREFIX . "product` as p USING (product_id) WHERE op.order_id = '$order_id'");
