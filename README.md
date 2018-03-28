@@ -6,7 +6,7 @@ Users can also obtain and update inventory levels.
 
 # PLEASE READ #
 
-This extension has been tested on OpenCart **V2.3.0.2**. 
+This extension has been tested on OpenCart **V2.2** and **V2.3.0.2**. 
 
 ###:bangbang:ENSURE YOU BACKUP YOUR SITE BEFORE INSTALLING THIS.### 
 
@@ -19,7 +19,7 @@ This extension has been tested on OpenCart **V2.3.0.2**.
 
 # INSTALLATION #
 
-######You may need to install [QuickFix](https://www.opencart.com/index.php?route=marketplace/extension/info&extension_id=18892&filter_search=quick+fix) extension in OpenCart in order to resolve FTP issues (Highly suggested).
+#You may need to install the [QuickFix](https://www.opencart.com/index.php?route=marketplace/extension/info&extension_id=18892&filter_search=quick+fix) extension in OpenCart 2.3 or below in order to resolve FTP issues (Highly suggested). This issue has been resolved in OpenCart v3.
 
 1. Download **upload.ocmod.zip** file from this repository. 
 2. Navigate to Extensions > Extension Installer inside your OpenCart admin area.
