@@ -1,6 +1,6 @@
 <?php
 
-class ControllerFeedGssApi extends Controller {
+class ControllerExtensionFeedGssApi extends Controller {
 
 	private $error = array();
 

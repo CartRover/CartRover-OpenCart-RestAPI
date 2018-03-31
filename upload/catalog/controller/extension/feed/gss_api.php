@@ -1,6 +1,6 @@
 <?php
 
-class ControllerFeedGssApi extends Controller {
+class ControllerExtensionFeedGssApi extends Controller {
 
 	//API call endpoint: feed/gss_api/orders
 	public function orders() {
