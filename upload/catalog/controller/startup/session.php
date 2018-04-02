@@ -17,7 +17,7 @@ class ControllerStartupSession extends Controller {
 //			$this->session->start();
 //		}
 		
-		if (isset($this->request->get['route']) 
+		if (isset($this->request->get['api_token']) && isset($this->request->get['route']) 
 				&& ( substr($this->request->get['route'], 0, 4) == 'api/' || substr($this->request->get['route'], 0, 13) == 'extension/feed/gss_api/')) {
 			$this->db->query("DELETE FROM `" . DB_PREFIX . "api_session` WHERE TIMESTAMPADD(HOUR, 1, date_modified) < NOW()");
 					
