@@ -5,7 +5,7 @@ class ControllerExtensionFeedGssApi extends Controller {
 	private $error = array();
 
 	public function index() {
-		$this->load->language('feed/gss_api');
+		$this->load->language('extension/feed/gss_api');
 
 		$this->document->setTitle($this->language->get('heading_title'));
 
@@ -41,22 +41,22 @@ class ControllerExtensionFeedGssApi extends Controller {
 
 		$data['breadcrumbs'][] = array(
 			'text' => $this->language->get('text_home'),
-			'href' => $this->url->link('common/dashboard', 'token=' . $this->session->data['token'], 'SSL')
+			'href' => $this->url->link('common/dashboard', 'token=' . $this->session->data['api_token'], 'SSL')
 		);
 
 		$data['breadcrumbs'][] = array(
 			'text' => $this->language->get('text_feed'),
-			'href' => $this->url->link('extension/extension', 'token=' . $this->session->data['token'], 'SSL')
+			'href' => $this->url->link('extension/extension', 'token=' . $this->session->data['api_token'], 'SSL')
 		);
 
 		$data['breadcrumbs'][] = array(
 			'text' => $this->language->get('heading_title'),
-			'href' => $this->url->link('extension/feed/gss_api', 'token=' . $this->session->data['token'], 'SSL')
+			'href' => $this->url->link('extension/feed/gss_api', 'token=' . $this->session->data['api_token'], 'SSL')
 		);
 
-		$data['action'] = $this->url->link('extension/feed/gss_api', 'token=' . $this->session->data['token'], 'SSL');
+		$data['action'] = $this->url->link('extension/feed/gss_api', 'token=' . $this->session->data['api_token'], 'SSL');
 
-		$data['cancel'] = $this->url->link('extension/extension', 'token=' . $this->session->data['token'], 'SSL');
+		$data['cancel'] = $this->url->link('extension/extension', 'token=' . $this->session->data['api_token'], 'SSL');
 
 		if (isset($this->request->post['gss_api_status'])) {
 			$data['gss_api_status'] = $this->request->post['gss_api_status'];
@@ -72,7 +72,7 @@ class ControllerExtensionFeedGssApi extends Controller {
 	}
 
 	protected function validate() {
-		if (!$this->user->hasPermission('modify', 'feed/gss_api')) {
+		if (!$this->user->hasPermission('modify', 'extension/feed/gss_api')) {
 			$this->error['warning'] = $this->language->get('error_permission');
 		}
 
