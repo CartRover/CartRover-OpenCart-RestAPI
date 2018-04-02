@@ -5,7 +5,8 @@ class ControllerExtensionFeedGssApi extends Controller {
 	private $error = array();
 
 	public function index() {
-		$this->load->language('extension/feed/gss_api');
+		//$this->load->language('feed/gss_api');
+		$this->load->language('extension/feed/gss_api'); // opencart 3
 
 		$this->document->setTitle($this->language->get('heading_title'));
 
@@ -14,22 +15,24 @@ class ControllerExtensionFeedGssApi extends Controller {
 		if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validate()) {
 			$this->model_setting_setting->editSetting('gss_api', $this->request->post);
 			$this->session->data['success'] = $this->language->get('text_success');
-			$this->response->redirect($this->url->link('extension/extension', 'token=' . $this->session->data['token'], 'SSL'));
+			// $this->response->redirect($this->url->link('extension/extension', 'token=' . $this->session->data['token'], 'SSL'));  
+			$this->response->redirect($this->url->link('marketplace/extension', 'user_token=' . $this->session->data['user_token'].'&type=feed', 'SSL'));  // opencart 3
+	
 		}
 
-		$data['heading_title'] = $this->language->get('heading_title');
-
-		$data['text_edit'] = $this->language->get('text_edit');
-		$data['text_enabled'] = $this->language->get('text_enabled');
-		$data['text_disabled'] = $this->language->get('text_disabled');
-
-		$data['entry_status'] = $this->language->get('entry_status');
-		$data['entry_key'] = $this->language->get('entry_key');
-
-		$data['button_save'] = $this->language->get('button_save');
-		$data['button_cancel'] = $this->language->get('button_cancel');
-
-		$data['tab_general'] = $this->language->get('tab_general');
+//		$data['heading_title'] = $this->language->get('heading_title');
+//
+//		$data['text_edit'] = $this->language->get('text_edit');
+//		$data['text_enabled'] = $this->language->get('text_enabled');
+//		$data['text_disabled'] = $this->language->get('text_disabled');
+//
+//		$data['entry_status'] = $this->language->get('entry_status');
+//		$data['entry_key'] = $this->language->get('entry_key');
+//
+//		$data['button_save'] = $this->language->get('button_save');
+//		$data['button_cancel'] = $this->language->get('button_cancel');
+//
+//		$data['tab_general'] = $this->language->get('tab_general');
 
 		if (isset($this->error['warning'])) {
 			$data['error_warning'] = $this->error['warning'];
@@ -41,23 +44,34 @@ class ControllerExtensionFeedGssApi extends Controller {
 
 		$data['breadcrumbs'][] = array(
 			'text' => $this->language->get('text_home'),
-			'href' => $this->url->link('common/dashboard', 'token=' . $this->session->data['api_token'], 'SSL')
+			//'href' => $this->url->link('common/dashboard', 'token=' . $this->session->data['token'], 'SSL')
+			'href' => $this->url->link('common/dashboard', 'user_token=' . $this->session->data['user_token'], 'SSL') // opencart 3
 		);
 
 		$data['breadcrumbs'][] = array(
-			'text' => $this->language->get('text_feed'),
-			'href' => $this->url->link('extension/extension', 'token=' . $this->session->data['api_token'], 'SSL')
+		//	'text' => $this->language->get('text_feed'),
+			'text' => $this->language->get('text_extension'), // opencart 3
+
+		//	'href' => $this->url->link('extension/extension', 'token=' . $this->session->data['token'], 'SSL')
+			'href' => $this->url->link('marketplace/extension', 'user_token=' . $this->session->data['user_token'].'&type=feed', 'SSL') // opencart 3
 		);
 
 		$data['breadcrumbs'][] = array(
 			'text' => $this->language->get('heading_title'),
-			'href' => $this->url->link('extension/feed/gss_api', 'token=' . $this->session->data['api_token'], 'SSL')
+			//'href' => $this->url->link('feed/gss_api', 'token=' . $this->session->data['token'], 'SSL')
+			'href' => $this->url->link('extension/feed/gss_api', 'user_token=' . $this->session->data['user_token'], 'SSL') // opencart 3
 		);
 
-		$data['action'] = $this->url->link('extension/feed/gss_api', 'token=' . $this->session->data['api_token'], 'SSL');
+	//	$data['action'] = $this->url->link('feed/gss_api', 'token=' . $this->session->data['token'], 'SSL');
+		$data['action'] = $this->url->link('extension/feed/gss_api', 'user_token=' . $this->session->data['user_token'], 'SSL'); // opencart 3
 
-		$data['cancel'] = $this->url->link('extension/extension', 'token=' . $this->session->data['api_token'], 'SSL');
+	//	$data['cancel'] = $this->url->link('extension/extension', 'token=' . $this->session->data['token'], 'SSL');
+		$data['cancel'] = $this->url->link('marketplace/extension', 'user_token=' . $this->session->data['user_token'].'&type=feed', 'SSL');  // opencart 3
 
+		//$data['user_token'] = $this->session->data['user_token'];  // opencart 3
+
+		//$data['data_feed'] = HTTP_CATALOG . 'index.php?route=extension/feed/gss_api'; // opencart 3
+		
 		if (isset($this->request->post['gss_api_status'])) {
 			$data['gss_api_status'] = $this->request->post['gss_api_status'];
 		} else {
@@ -68,16 +82,18 @@ class ControllerExtensionFeedGssApi extends Controller {
 		$data['column_left'] = $this->load->controller('common/column_left');
 		$data['footer'] = $this->load->controller('common/footer');
 
-		$this->response->setOutput($this->load->view('feed/gss_api.tpl', $data));
+		// $this->response->setOutput($this->load->view('feed/gss_api.tpl', $data));
+		$this->response->setOutput($this->load->view('extension/feed/gss_api', $data));  // opencart 3
+		
 	}
 
 	protected function validate() {
-		if (!$this->user->hasPermission('modify', 'extension/feed/gss_api')) {
+		// if (!$this->user->hasPermission('modify', 'feed/gss_api')) {
+		if (!$this->user->hasPermission('modify', 'extension/feed/gss_api')) {	 // opencart 3		
 			$this->error['warning'] = $this->language->get('error_permission');
 		}
 
 		return !$this->error;
 		//return true; 
 	}
-
 }
