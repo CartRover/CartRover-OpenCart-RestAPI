@@ -21,7 +21,7 @@ class ControllerExtensionFeedGssApi extends Controller {
 		}
 
 //		$data['heading_title'] = $this->language->get('heading_title');
-//
+//		
 //		$data['text_edit'] = $this->language->get('text_edit');
 //		$data['text_enabled'] = $this->language->get('text_enabled');
 //		$data['text_disabled'] = $this->language->get('text_disabled');
@@ -31,9 +31,7 @@ class ControllerExtensionFeedGssApi extends Controller {
 //
 //		$data['button_save'] = $this->language->get('button_save');
 //		$data['button_cancel'] = $this->language->get('button_cancel');
-//
-//		$data['tab_general'] = $this->language->get('tab_general');
-
+		
 		if (isset($this->error['warning'])) {
 			$data['error_warning'] = $this->error['warning'];
 		} else {
@@ -68,9 +66,9 @@ class ControllerExtensionFeedGssApi extends Controller {
 	//	$data['cancel'] = $this->url->link('extension/extension', 'token=' . $this->session->data['token'], 'SSL');
 		$data['cancel'] = $this->url->link('marketplace/extension', 'user_token=' . $this->session->data['user_token'].'&type=feed', 'SSL');  // opencart 3
 
-		//$data['user_token'] = $this->session->data['user_token'];  // opencart 3
+		$data['user_token'] = $this->session->data['user_token'];  // opencart 3
 
-		//$data['data_feed'] = HTTP_CATALOG . 'index.php?route=extension/feed/gss_api'; // opencart 3
+		$data['data_feed'] = HTTP_CATALOG . 'index.php?route=extension/feed/gss_api'; // opencart 3
 		
 		if (isset($this->request->post['gss_api_status'])) {
 			$data['gss_api_status'] = $this->request->post['gss_api_status'];
