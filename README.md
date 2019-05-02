@@ -33,7 +33,7 @@ This extension has been tested on OpenCart **V2.2** and **V2.3.0.2**.
 You will notice that the folders are in the same structure as your Opencart installation.
 
 # HELP #
-Visit the CartRover community support site at: https://answers.cartrover.com/
+Visit the CartRover community support site at: https://support.cartrover.com/
 
 # USAGE #
 The following is a list of API endpoints that this extension adds to OpenCart. When using this extension with CartRover, you do not need to worry about the information below. This information is useful if you plan to use this extension with a system other than CartRover.
